@@ -99,6 +99,7 @@ def train_complete(hyper_params, Model, train_reader, val_reader, user_count, it
     file_write(hyper_params['log_file'], "\nModel Built!\nStarting Training...\n")
 
     try:
+        early_stop = 10
         best_MSE = float(INF)
 
         for epoch in range(1, hyper_params['epochs'] + 1):
@@ -124,7 +125,11 @@ def train_complete(hyper_params, Model, train_reader, val_reader, user_count, it
                 print("Saving model...")
                 torch.save(model.state_dict(), hyper_params['model_path'])
                 best_MSE = metrics['MSE']
-            
+                early_stop = 10
+            else:
+                early_stop -= 1
+            if early_stop <= 0:
+                break
     except KeyboardInterrupt: print('Exiting from training early')
 
     # Load best model and return it for evaluation on test-set
