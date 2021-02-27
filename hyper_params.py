@@ -48,7 +48,7 @@ def get_common_path(hyper_params):
     return common_path
 
 hyper_params = {
-    'dataset': 'yelp', # Which dataset to run? 
+    'dataset': 'r4r', # Which dataset to run? 
     # Pass the same human-friendly dataset name as passed in `prep_all_data.sh`
 
     'k_core': 5, # Data setting?
